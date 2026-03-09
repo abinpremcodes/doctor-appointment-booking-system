@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3 class="mb-4">Your Appointments</h3>
+
+{% if appointments %}
+    <div class="table-responsive table-custom p-3">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Doctor</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+               {% for appointment in appointments %}
+<tr>
+    <td>Dr. {{ appointment.doctor.user.username }}</td>
+    <td>{{ appointment.appointment_date }}</td>
+    <td>{{ appointment.appointment_time }}</td>
+
+    {% if user.role == "patient" %}
+    <td>
+        <a href="{% url 'cancel_appointment' appointment.id %}" class="btn btn-danger btn-sm">
+            Cancel
+        </a>
+    </td>
+    {% endif %}
+
+</tr>
+
+                        <span class="badge 
+                            {% if appointment.status == 'pending' %}
+                                bg-warning
+                            {% elif appointment.status == 'confirmed' %}
+                                bg-success
+                            {% else %}
+                                bg-danger
+                            {% endif %}
+                        ">
+                            {{ appointment.status }}
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <p class="text-muted">No appointments yet.</p>
+{% endif %}
+
+{% endblock %}

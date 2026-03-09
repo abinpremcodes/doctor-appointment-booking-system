@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card card-custom p-4">
+
+            <h4 class="text-center mb-4">Login to Your Account</h4>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        Invalid username or password.
+                    </div>
+                {% endif %}
+
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" name="username" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control">
+                </div>
+
+                <button type="submit" class="btn btn-primary-custom w-100 mt-3">
+                    Login
+                </button>
+            </form>
+
+            <p class="text-center mt-3 text-muted">
+                Don't have an account?
+                <a href="/register/" class="text-decoration-none">Create Account</a>
+            </p>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
